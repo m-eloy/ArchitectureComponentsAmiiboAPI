@@ -6,15 +6,17 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModelProviders
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.dateToString
-import kotlinx.android.synthetic.main.activity_create_amiibo.*
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityCreateAmiiboBinding
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import java.util.*
 
 class CreateAmiiboActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityCreateAmiiboBinding
 
     private val viewModel: CreateAmiiboViewModel by lazy { ViewModelProviders.of(this).get(CreateAmiiboViewModel::class.java) }
 
@@ -22,7 +24,9 @@ class CreateAmiiboActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_amiibo)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_amiibo)
+        binding.setVariable(BR.viewModel, viewModel)
+        binding.setLifecycleOwner(this)
 
         setupDatePicker()
         setupToolbar()
@@ -53,33 +57,24 @@ class CreateAmiiboActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setupViews() {
-        characterEditText.apply {
-            requestFocus()
-            textChangedListener { onTextChanged { charSequence, _, _, _ -> viewModel.character = charSequence.toString().capitalize() } }
-        }
+        binding.characterEditText.requestFocus()
 
-        amiiboSeriesEditText.textChangedListener { onTextChanged { charSequence, _, _, _ -> viewModel.amiiboSeries = charSequence.toString().capitalize() } }
-
-        gameSeriesEditText.textChangedListener { onTextChanged { charSequence, _, _, _ -> viewModel.gameSeries = charSequence.toString().capitalize() } }
-
-        releaseEditText.onClick { datePickerDialog?.show() }
+        binding.releaseEditText.onClick { datePickerDialog?.show() }
     }
 
     private fun setupDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
-        calendar.time = viewModel.release
-
+        calendar.time = viewModel.release.value ?: Date()
         datePickerDialog = DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->
                 calendar.set(year, month, dayOfMonth)
-                releaseEditText.setText(calendar.time.dateToString().capitalize())
-                viewModel.release = calendar.time
+                viewModel.release.value = calendar.time
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),

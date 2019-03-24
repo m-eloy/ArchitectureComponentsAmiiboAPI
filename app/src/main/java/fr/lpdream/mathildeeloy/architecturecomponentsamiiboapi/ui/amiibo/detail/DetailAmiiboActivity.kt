@@ -4,30 +4,27 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModelProviders
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.dateToString
-import kotlinx.android.synthetic.main.activity_detail_amiibo.*
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityDetailAmiiboBinding
 
 class DetailAmiiboActivity : AppCompatActivity() {
 
-    private val viewModel: DetailAmiiboViewModel by lazy { ViewModelProviders.of(this).get(DetailAmiiboViewModel::class.java) }
+    private lateinit var binding: ActivityDetailAmiiboBinding
 
-    private var amiibo: Amiibo? = null
+    private val viewModel: DetailAmiiboViewModel by lazy { ViewModelProviders.of(this).get(DetailAmiiboViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_amiibo)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_amiibo)
+        binding.setVariable(BR.viewModel, viewModel)
+        binding.setLifecycleOwner(this)
 
         viewModel.amiiboId.value = intent.getIntExtra("id", 0)
 
-        viewModel.amiibo.observe(this, Observer {
-            amiibo = it
-            setupToolbar()
-            setupViews()
-        })
+        setupToolbar()
     }
 
     override fun finish() {
@@ -44,18 +41,7 @@ class DetailAmiiboActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(toolbar)
-        title = amiibo?.character
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun setupViews() {
-        amiibo?.let { amiibo ->
-            amiiboSeries.text = amiibo.amiiboSeries
-
-            gameSeries.text = amiibo.gameSeries
-
-            release.text = amiibo.release.dateToString().capitalize()
-        }
     }
 }

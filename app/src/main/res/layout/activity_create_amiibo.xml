@@ -1,103 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-            style="@style/Toolbar"
-            android:id="@+id/toolbar"
+    <data>
+        <variable name="viewModel" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.create.CreateAmiiboViewModel"/>
+        <import type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils.Utils"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/create_amiibo"/>
+            android:layout_height="match_parent">
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.Toolbar
+                style="@style/Toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/item_margin">
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/create_amiibo"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/characterLayout"
-                    style="@style/TextInput"
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:hint="@string/character">
+                    android:layout_margin="@dimen/item_margin">
 
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/characterEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/characterLayout"
+                        style="@style/TextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        tools:text="Mario"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:hint="@string/character">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/characterEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="@={viewModel.character}"
+                            tools:text="Mario"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/amiiboSeriesLayout"
-                    style="@style/TextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/characterLayout"
-                    android:hint="@string/amiibo_series">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/amiiboSeriesEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/amiiboSeriesLayout"
+                        style="@style/TextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="Cette série Amiibo"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/characterLayout"
+                        android:hint="@string/amiibo_series">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/amiiboSeriesEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewModel.amiiboSeries}"
+                            tools:text="Cette série Amiibo"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/releaseLayout"
-                    style="@style/TextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/amiiboSeriesLayout"
-                    android:hint="@string/release">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/releaseEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/releaseLayout"
+                        style="@style/TextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusableInTouchMode="false"
-                        android:cursorVisible="false"
-                        tools:text="12/04/2012"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/amiiboSeriesLayout"
+                        android:hint="@string/release">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/releaseEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusableInTouchMode="false"
+                            android:cursorVisible="false"
+                            android:text="@{Utils.dateToStringCapitalize(viewModel.release)}"
+                            tools:text="12/04/2012"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/gameSeriesLayout"
-                    style="@style/TextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/releaseLayout"
-                    android:hint="@string/game_series">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/gameSeriesEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gameSeriesLayout"
+                        style="@style/TextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="Ce jeu"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/releaseLayout"
+                        android:hint="@string/game_series">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gameSeriesEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewModel.gameSeries}"
+                            tools:text="Ce jeu"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

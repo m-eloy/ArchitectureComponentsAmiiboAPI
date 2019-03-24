@@ -2,21 +2,24 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityAmiibosBinding
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.startAnimatedActivity
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.create.CreateAmiiboActivity
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.detail.DetailAmiiboActivity
-import kotlinx.android.synthetic.main.activity_amiibo.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class AmiibosActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityAmiibosBinding
 
     private val viewModel: AmiibosViewModel by lazy { ViewModelProviders.of(this).get(AmiibosViewModel::class.java) }
 
@@ -24,7 +27,9 @@ class AmiibosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_amiibo)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_amiibos)
+        binding.setVariable(BR.viewModel, viewModel)
+        binding.setLifecycleOwner(this)
 
         setupAdapter()
         setupFab()
@@ -43,11 +48,11 @@ class AmiibosActivity : AppCompatActivity() {
     }
 
     private fun setupFab() {
-        fab.onClick { startAnimatedActivity(intentFor<CreateAmiiboActivity>()) }
+        binding.fab.onClick { startAnimatedActivity(intentFor<CreateAmiiboActivity>()) }
     }
 
     private fun setupRecyclerView() {
-        recyclerView.apply {
+        binding.recyclerView.apply {
             addItemDecoration(DividerItemDecoration(this@AmiibosActivity, DividerItemDecoration.VERTICAL))
             layoutManager = LinearLayoutManager(this@AmiibosActivity)
             adapter = amiibosAdapter
@@ -56,9 +61,7 @@ class AmiibosActivity : AppCompatActivity() {
 
     private fun showDeletePopup(amiibo: Amiibo) {
         alert(getString(R.string.delete_amiibo_warning, amiibo.character)) {
-            yesButton {
-                doAsync { AmiiboRepository.delete(amiibo) }
-            }
+            yesButton { viewModel.delete(amiibo) }
             noButton { }
         }.show()
     }
