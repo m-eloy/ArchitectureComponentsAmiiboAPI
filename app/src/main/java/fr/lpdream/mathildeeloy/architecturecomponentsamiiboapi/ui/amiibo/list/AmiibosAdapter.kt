@@ -3,6 +3,8 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
@@ -10,12 +12,10 @@ import kotlinx.android.synthetic.main.item_amiibo.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.sdk27.coroutines.onLongClick
 
-class AmiibosAdapter: RecyclerView.Adapter<AmiibosAdapter.AmiiboViewHolder>() {
+class AmiibosAdapter: ListAdapter<Amiibo, AmiibosAdapter.AmiiboViewHolder>(AmiiboDiffCallback()) {
 
     var onClick: ((item: Amiibo) -> Unit)? = null
     var onLongClick: ((item: Amiibo) -> Unit)? = null
-
-    private var data = listOf<Amiibo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AmiiboViewHolder =
         AmiiboViewHolder(
@@ -26,11 +26,8 @@ class AmiibosAdapter: RecyclerView.Adapter<AmiibosAdapter.AmiiboViewHolder>() {
             )
         )
 
-    override fun getItemCount(): Int = data.size
-
     override fun onBindViewHolder(holder: AmiiboViewHolder, position: Int) {
-        holder.bind(data[position], object:
-        OnAmiiboClickListener {
+        holder.bind(getItem(position), object: OnAmiiboClickListener {
             override fun onItemClick(amiibo: Amiibo) {
                 onClick?.invoke(amiibo)
             }
@@ -41,9 +38,11 @@ class AmiibosAdapter: RecyclerView.Adapter<AmiibosAdapter.AmiiboViewHolder>() {
         })
     }
 
-    fun replaceData(newData: List<Amiibo>) {
-        this.data = newData
-        notifyDataSetChanged()
+    class AmiiboDiffCallback: DiffUtil.ItemCallback<Amiibo>() {
+
+        override fun areContentsTheSame(oldItem: Amiibo, newItem: Amiibo): Boolean = oldItem == newItem
+
+        override fun areItemsTheSame(oldItem: Amiibo, newItem: Amiibo): Boolean = oldItem.id == newItem.id
     }
 
     class AmiiboViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

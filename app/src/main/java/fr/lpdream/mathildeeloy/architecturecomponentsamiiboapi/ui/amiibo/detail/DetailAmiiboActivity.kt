@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.dateToString
 import kotlinx.android.synthetic.main.activity_detail_amiibo.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 class DetailAmiiboActivity : AppCompatActivity() {
 
@@ -20,13 +19,11 @@ class DetailAmiiboActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_amiibo)
 
-        doAsync {
-            amiibo = AmiiboRepository.getById(intent.getIntExtra("id", 0))
-            uiThread {
-                setupToolbar()
-                setupViews()
-            }
-        }
+        AmiiboRepository.getById(intent.getIntExtra("id", 0)).observe(this, Observer {
+            amiibo = it
+            setupToolbar()
+            setupViews()
+        })
     }
 
     override fun finish() {

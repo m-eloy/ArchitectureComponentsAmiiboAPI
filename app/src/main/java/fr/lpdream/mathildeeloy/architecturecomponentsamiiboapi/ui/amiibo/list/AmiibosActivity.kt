@@ -2,6 +2,7 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
@@ -27,15 +28,11 @@ class AmiibosActivity : AppCompatActivity() {
         setupRecyclerView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        doAsync {
-            val data = AmiiboRepository.getAll()
-            uiThread { amiibosAdapter.replaceData(data) }
-        }
-    }
-
     private fun setupAdapter() {
+        AmiiboRepository.getAll().observe(this, Observer {
+            amiibosAdapter.submitList(it)
+        })
+
         amiibosAdapter.apply {
             onClick = { startAnimatedActivity(intentFor<DetailAmiiboActivity>("id" to it.id)) }
             onLongClick = { showDeletePopup(it) }
@@ -57,11 +54,7 @@ class AmiibosActivity : AppCompatActivity() {
     private fun showDeletePopup(amiibo: Amiibo) {
         alert(getString(R.string.delete_amiibo_warning, amiibo.character)) {
             yesButton {
-                doAsync {
-                    AmiiboRepository.delete(amiibo)
-                    val data = AmiiboRepository.getAll()
-                    uiThread { amiibosAdapter.replaceData(data) }
-                }
+                doAsync { AmiiboRepository.delete(amiibo) }
             }
             noButton { }
         }.show()

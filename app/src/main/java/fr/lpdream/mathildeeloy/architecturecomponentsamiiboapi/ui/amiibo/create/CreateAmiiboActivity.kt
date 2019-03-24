@@ -11,11 +11,8 @@ import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.dateToString
 import kotlinx.android.synthetic.main.activity_create_amiibo.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
-import org.jetbrains.anko.uiThread
 import java.util.*
 
 class CreateAmiiboActivity : AppCompatActivity() {
@@ -49,10 +46,8 @@ class CreateAmiiboActivity : AppCompatActivity() {
             true
         }
         R.id.confirm -> {
-            doAsync {
-                AmiiboRepository.insert(amiibo)
-                uiThread { ActivityCompat.finishAfterTransition(this@CreateAmiiboActivity) }
-            }
+            AmiiboRepository.insert(amiibo)
+            ActivityCompat.finishAfterTransition(this@CreateAmiiboActivity)
             true
         }
         else -> super.onOptionsItemSelected(item)
