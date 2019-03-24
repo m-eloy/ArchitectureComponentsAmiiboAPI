@@ -3,6 +3,7 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.list
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
@@ -17,6 +18,8 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class AmiibosActivity : AppCompatActivity() {
 
+    private val viewModel: AmiibosViewModel by lazy { ViewModelProviders.of(this).get(AmiibosViewModel::class.java) }
+
     private var amiibosAdapter = AmiibosAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +32,7 @@ class AmiibosActivity : AppCompatActivity() {
     }
 
     private fun setupAdapter() {
-        AmiiboRepository.getAll().observe(this, Observer {
+        viewModel.amiibos.observe(this, Observer {
             amiibosAdapter.submitList(it)
         })
 

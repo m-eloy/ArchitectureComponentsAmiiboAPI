@@ -5,13 +5,15 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.dateToString
 import kotlinx.android.synthetic.main.activity_detail_amiibo.*
 
 class DetailAmiiboActivity : AppCompatActivity() {
+
+    private val viewModel: DetailAmiiboViewModel by lazy { ViewModelProviders.of(this).get(DetailAmiiboViewModel::class.java) }
 
     private var amiibo: Amiibo? = null
 
@@ -19,7 +21,9 @@ class DetailAmiiboActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_amiibo)
 
-        AmiiboRepository.getById(intent.getIntExtra("id", 0)).observe(this, Observer {
+        viewModel.amiiboId.value = intent.getIntExtra("id", 0)
+
+        viewModel.amiibo.observe(this, Observer {
             amiibo = it
             setupToolbar()
             setupViews()

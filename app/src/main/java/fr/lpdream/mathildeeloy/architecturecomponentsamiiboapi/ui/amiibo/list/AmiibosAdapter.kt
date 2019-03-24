@@ -19,11 +19,7 @@ class AmiibosAdapter: ListAdapter<Amiibo, AmiibosAdapter.AmiiboViewHolder>(Amiib
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AmiiboViewHolder =
         AmiiboViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_amiibo,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context).inflate(R.layout.item_amiibo, parent, false)
         )
 
     override fun onBindViewHolder(holder: AmiiboViewHolder, position: Int) {
