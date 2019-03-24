@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">ArchitectureComponentsAmiiboAPI</string>
+    <string name="app_name">AmiiboAPI</string>
+
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="confirm">Confirmer</string>
+    <string name="amiibo">Amiibo</string>
+    <string name="create_amiibo">Créer un Amiibo</string>
+    <string name="delete_amiibo">Supprimer un Amiibo</string>
+    <string name="delete_amiibo_warning">Voulez-vous vraiment supprimer l\'Amiibo %1$s?</string>
+
+    <string name="amiibo_series">Univers</string>
+    <string name="character">Personnage</string>
+    <string name="game_series">Jeu</string>
+    <string name="release">Naissance</string>
+
 </resources>
