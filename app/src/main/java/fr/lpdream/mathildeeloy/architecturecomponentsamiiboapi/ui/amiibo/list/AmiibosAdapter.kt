@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
 
 class AmiibosAdapter: ListAdapter<Amiibo, AmiibosAdapter.AmiiboViewHolder>(AmiiboDiffCallback()) {
 

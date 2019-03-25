@@ -4,7 +4,7 @@
          xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="amiibo" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo" />
+        <variable name="amiibo" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo" />
         <variable name="listener" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.list.AmiibosAdapter.OnAmiiboClickListener" />
     </data>
 
@@ -17,17 +17,26 @@
             android:onClick="@{() -> listener.onItemClick(amiibo)}"
             android:onLongClick="@{() -> listener.onItemLongClick(amiibo)}">
 
+        <ImageView
+                android:id="@+id/image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cover="@{amiibo.imageUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
                 style="@style/Title"
                 android:id="@+id/character"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Mario"
                 android:text="@{amiibo.character}"
                 android:layout_marginTop="@dimen/item_margin"
                 android:layout_marginStart="@dimen/item_margin"
                 android:layout_marginEnd="@dimen/item_margin"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/gameSeries"/>
@@ -35,14 +44,14 @@
         <TextView
                 style="@style/SubTitle"
                 android:id="@+id/gameSeries"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Un super jeu."
                 android:text="@{amiibo.gameSeries}"
                 android:layout_marginStart="@dimen/item_margin"
                 android:layout_marginEnd="@dimen/item_margin"
                 android:layout_marginBottom="@dimen/item_margin"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/character"
                 app:layout_constraintBottom_toBottomOf="parent"/>

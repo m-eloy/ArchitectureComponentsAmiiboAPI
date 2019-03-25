@@ -1,4 +1,4 @@
-package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data
+package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -16,5 +16,7 @@ data class Amiibo(
 
     var gameSeries: String = "Sans jeu",
 
-    var release: Date = Date()
+    var release: Date = Date(),
+
+    var imageUrl: String? = null
 )

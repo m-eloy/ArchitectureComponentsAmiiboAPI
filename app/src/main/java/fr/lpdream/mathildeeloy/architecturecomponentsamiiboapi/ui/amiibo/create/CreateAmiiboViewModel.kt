@@ -3,8 +3,8 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.create
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.AmiiboRepository
 import java.util.*
 
 class CreateAmiiboViewModel(application: Application): AndroidViewModel(application) {

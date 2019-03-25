@@ -30,76 +30,83 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/item_margin">
 
+                <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:cover="@{viewModel.amiibo.imageUrl}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
                 <TextView
                         style="@style/Title"
                         android:id="@+id/amiiboSeriesTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/amiibo_series"
                         android:textSize="18sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintStart_toEndOf="@+id/image"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                         style="@style/Text"
                         android:id="@+id/amiiboSeries"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="Cet Amiibo appartient à cette série."
                         android:text="@{viewModel.amiibo.amiiboSeries}"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/amiiboSeriesTitle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
+                />
 
                 <TextView
                         style="@style/Title"
                         android:id="@+id/releaseTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/release"
                         android:textSize="18sp"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/amiiboSeries"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
+                />
 
                 <TextView
                         style="@style/Text"
                         android:id="@+id/release"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="12/04/2012"
                         android:text="@{Utils.dateToStringCapitalize(viewModel.amiibo.release)}"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/releaseTitle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
+                />
 
                 <TextView
                         style="@style/Title"
                         android:id="@+id/gameSeriesTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/game_series"
                         android:textSize="18sp"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/release"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
+                />
 
                 <TextView
                         style="@style/Text"
                         android:id="@+id/gameSeries"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="Cet Amiibo appartient à ce jeu."
                         android:text="@{viewModel.amiibo.gameSeries}"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/gameSeriesTitle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

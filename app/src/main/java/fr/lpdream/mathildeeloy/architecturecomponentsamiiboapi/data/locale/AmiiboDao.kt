@@ -1,4 +1,4 @@
-package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data
+package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -8,9 +8,6 @@ interface AmiiboDao {
 
     @Query("SELECT * FROM amiibo WHERE id= :id")
     fun getById(id:Int): LiveData<Amiibo>
-
-    @Query("SELECT * FROM amiibo ORDER BY character")
-    fun getAll(): List<Amiibo>
 
     @Query("SELECT * FROM amiibo ORDER BY character")
     fun getAllLive(): LiveData<List<Amiibo>>

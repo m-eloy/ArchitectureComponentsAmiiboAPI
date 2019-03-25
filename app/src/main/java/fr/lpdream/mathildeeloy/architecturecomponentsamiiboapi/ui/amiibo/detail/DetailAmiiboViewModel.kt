@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.AmiiboRepository
 
 class DetailAmiiboViewModel(application: Application): AndroidViewModel(application) {
 

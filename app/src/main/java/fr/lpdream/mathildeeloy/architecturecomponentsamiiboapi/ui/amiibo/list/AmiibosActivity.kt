@@ -9,8 +9,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.remote.AmiibosResponseCallback
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityAmiibosBinding
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.showAction
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.showError
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.startAnimatedActivity
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.create.CreateAmiiboActivity
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.detail.DetailAmiiboActivity
@@ -34,6 +37,7 @@ class AmiibosActivity : AppCompatActivity() {
         setupAdapter()
         setupFab()
         setupRecyclerView()
+        setupSwipeRefreshLayout()
     }
 
     private fun setupAdapter() {
@@ -56,6 +60,28 @@ class AmiibosActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(this@AmiibosActivity, DividerItemDecoration.VERTICAL))
             layoutManager = LinearLayoutManager(this@AmiibosActivity)
             adapter = amiibosAdapter
+        }
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.apply {
+
+            fun refresh() {
+                isRefreshing = true
+                viewModel.refresh(object: AmiibosResponseCallback{
+                    override fun onSuccess() {
+                        binding.root.showAction(getString(R.string.amiibos_loaded))
+                        isRefreshing = false
+                    }
+
+                    override fun onError(throwable: Throwable) {
+                        binding.root.showError(getString(R.string.amiibos_loading_error))
+                        isRefreshing = false
+                    }
+                })
+            }
+            setOnRefreshListener { refresh() }
+            post { refresh() }
         }
     }
 

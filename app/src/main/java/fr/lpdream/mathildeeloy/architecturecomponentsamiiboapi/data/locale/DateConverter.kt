@@ -1,4 +1,4 @@
-package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data
+package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale
 
 import androidx.room.TypeConverter
 import java.util.*

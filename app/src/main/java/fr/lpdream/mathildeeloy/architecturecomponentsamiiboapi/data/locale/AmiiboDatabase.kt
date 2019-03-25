@@ -1,4 +1,4 @@
-package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data
+package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale
 
 import android.content.Context
 import androidx.room.Database
