@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.Amiibo
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ItemAmiiboBinding
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseAdapter
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseViewHolder

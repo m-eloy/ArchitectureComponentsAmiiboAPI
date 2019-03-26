@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.Amiibo
 
 @Database(entities = [Amiibo::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)
@@ -13,9 +14,6 @@ abstract class AmiiboDatabase : RoomDatabase() {
     abstract fun amiiboDao(): AmiiboDao
 
     companion object {
-
-        fun buildInstance(context: Context) = Room
-            .databaseBuilder(context, AmiiboDatabase::class.java, "AmiiboDatabase")
-            .build()
+        const val DATABASE_NAME = "AmiiboDatabase"
     }
 }

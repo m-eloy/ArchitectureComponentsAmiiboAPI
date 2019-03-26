@@ -9,13 +9,14 @@ import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityCreateAmiiboBinding
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseActivity
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class CreateAmiiboActivity : BaseActivity<CreateAmiiboViewModel, ActivityCreateAmiiboBinding>() {
 
     override val layout: Int = R.layout.activity_create_amiibo
 
-    override fun setViewModel(): Class<CreateAmiiboViewModel> = CreateAmiiboViewModel::class.java
+    override val viewModel: CreateAmiiboViewModel by viewModel()
 
     private var datePickerDialog: DatePickerDialog? = null
 

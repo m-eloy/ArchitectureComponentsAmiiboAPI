@@ -4,7 +4,7 @@
          xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="item" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo" />
+        <variable name="item" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.Amiibo" />
         <variable name="listener" type="fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils.OnItemClickListener" />
     </data>
 

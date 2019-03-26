@@ -1,4 +1,4 @@
-package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale
+package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

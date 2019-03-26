@@ -3,11 +3,15 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.create
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.AmiiboRepository
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.AmiiboRepository
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 import java.util.*
 
-class CreateAmiiboViewModel(application: Application): AndroidViewModel(application) {
+class CreateAmiiboViewModel(application: Application): AndroidViewModel(application), KoinComponent {
+
+    private val amiiboRepository: AmiiboRepository by inject()
 
     var amiiboSeries: MutableLiveData<String> = MutableLiveData()
 
@@ -18,7 +22,7 @@ class CreateAmiiboViewModel(application: Application): AndroidViewModel(applicat
     var release: MutableLiveData<Date> = MutableLiveData()
 
     fun insert() {
-        AmiiboRepository.insert(
+        amiiboRepository.insert(
             Amiibo(
                 amiiboSeries = amiiboSeries.value?.capitalize() ?: "",
                 character = character.value?.capitalize() ?: "",

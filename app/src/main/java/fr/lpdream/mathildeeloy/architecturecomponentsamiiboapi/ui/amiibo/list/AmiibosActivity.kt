@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.Amiibo
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.Amiibo
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.remote.AmiibosResponseCallback
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityAmiibosBinding
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.showAction
@@ -16,12 +16,13 @@ import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.detail.
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AmiibosActivity : BaseActivity<AmiibosViewModel, ActivityAmiibosBinding>() {
 
     override val layout: Int = R.layout.activity_amiibos
 
-    override fun setViewModel(): Class<AmiibosViewModel> = AmiibosViewModel::class.java
+    override val viewModel: AmiibosViewModel by viewModel()
 
     private var amiibosAdapter = AmiibosAdapter(this)
 

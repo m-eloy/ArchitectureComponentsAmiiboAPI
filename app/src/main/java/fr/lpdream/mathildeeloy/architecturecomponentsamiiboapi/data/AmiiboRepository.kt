@@ -1,8 +1,9 @@
-package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale
+package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.AmiiboDao
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.Amiibo
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.remote.AmiiboReleaseResponse
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.remote.AmiiboResponse
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.remote.AmiiboService
@@ -13,32 +14,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.doAsync
-import org.json.JSONArray
-import org.json.JSONObject
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 import java.util.*
 
-object AmiiboRepository {
+class AmiiboRepository: KoinComponent {
 
-    private lateinit var database: AmiiboDatabase
-
-    private lateinit var amiiboDao: AmiiboDao
+    private val amiiboDao: AmiiboDao by inject()
 
     private val service = AmiiboService.create()
-
-    fun initialize(application: Application) {
-        database = AmiiboDatabase.buildInstance(application)
-        amiiboDao = database.amiiboDao()
-    }
 
     //region locale
 
     fun insertAll(amiibos: List<Amiibo>) = doAsync {
-        amiiboDao.insertAll(amiibos)
+        amiiboDao.insertAll(amiibos.distinctBy { amiibo -> amiibo.character })
         Log.d("amiiboRepository", "inserting amiibo: $amiibos")
     }
 
-    fun insert(amiibo: Amiibo) =
-        insertAll(listOf(amiibo))
+    fun insert(amiibo: Amiibo) = insertAll(listOf(amiibo))
 
     fun delete(amiibo: Amiibo) = doAsync { amiiboDao.delete(amiibo) }
 
@@ -55,7 +48,12 @@ object AmiiboRepository {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onNext = { amiibosListResponse -> insertAll(amiibosListResponse.results.map { amiiboResponse -> amiiboResponseToAmiibo(amiiboResponse) }) },
+                onNext = { amiibosListResponse ->
+                    insertAll(
+                        amiibosListResponse.results.map { amiiboResponse ->
+                            amiiboResponseToAmiibo(amiiboResponse)
+                        })
+                },
                 onComplete = { callback.onSuccess() },
                 onError = { callback.onError(it) }
             )
@@ -74,14 +72,17 @@ object AmiiboRepository {
             )
     }
 
-    private fun amiiboResponseToAmiibo(amiiboResponse: AmiiboResponse): Amiibo = Amiibo(
-        id = (0..100).random(),
-        amiiboSeries = amiiboResponse.amiiboSeries,
-        character = amiiboResponse.character,
-        gameSeries = amiiboResponse.gameSeries,
-        release = getReleaseDate(amiiboResponse.release).toDate("yyyy-MM-dd") ?: Date(),
-        imageUrl = amiiboResponse.image
-    )
+    private fun amiiboResponseToAmiibo(amiiboResponse: AmiiboResponse): Amiibo =
+        Amiibo(
+            id = (0..100).random(),
+            amiiboSeries = amiiboResponse.amiiboSeries,
+            character = amiiboResponse.character,
+            gameSeries = amiiboResponse.gameSeries,
+            release = getReleaseDate(
+                amiiboResponse.release
+            ).toDate("yyyy-MM-dd") ?: Date(),
+            imageUrl = amiiboResponse.image
+        )
 
     private fun getReleaseDate(release: AmiiboReleaseResponse): String {
         val res: String

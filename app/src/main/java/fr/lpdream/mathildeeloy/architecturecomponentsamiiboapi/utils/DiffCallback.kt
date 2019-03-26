@@ -1,7 +1,7 @@
 package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.BaseObject
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.BaseObject
 
 class DiffCallback<T: BaseObject>(private val updateWhen: ((T, T) -> Boolean)?): DiffUtil.ItemCallback<T>() {
 

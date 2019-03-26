@@ -1,6 +1,6 @@
 package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils
 
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.BaseObject
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.BaseObject
 
 interface OnItemClickListener<T: BaseObject> {
 

@@ -12,7 +12,7 @@
     <string name="amiibo_series">Série de l\'Amiibo</string>
     <string name="character">Personnage</string>
     <string name="game_series">Jeu vidéo</string>
-    <string name="release">Création</string>
+    <string name="release">Date de sortie</string>
 
     <string name="amiibos_loaded">Les amiibos ont bien été récupérés.</string>
     <string name="amiibos_loading_error">Désolé, une erreur a empêché la récupération des amiibos.</string>

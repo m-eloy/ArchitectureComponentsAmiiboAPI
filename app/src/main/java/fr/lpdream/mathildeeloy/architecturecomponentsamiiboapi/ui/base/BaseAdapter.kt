@@ -2,7 +2,7 @@ package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ListAdapter
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.BaseObject
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.BaseObject
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils.DiffCallback
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils.OnItemClickListener
 

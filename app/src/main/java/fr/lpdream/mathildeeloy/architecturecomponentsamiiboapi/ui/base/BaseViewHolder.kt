@@ -4,7 +4,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.BR
-import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.locale.BaseObject
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.data.model.BaseObject
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.utils.OnItemClickListener
 
 abstract class BaseViewHolder<T: BaseObject, V: ViewDataBinding>(private val viewDataBinding: V): RecyclerView.ViewHolder(viewDataBinding.root) {
