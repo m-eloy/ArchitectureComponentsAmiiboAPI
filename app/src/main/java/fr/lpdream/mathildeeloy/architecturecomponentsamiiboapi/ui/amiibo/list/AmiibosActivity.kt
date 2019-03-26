@@ -1,11 +1,7 @@
 package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.list
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
@@ -17,23 +13,19 @@ import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.showErr
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.extension.startAnimatedActivity
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.create.CreateAmiiboActivity
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.detail.DetailAmiiboActivity
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
-class AmiibosActivity : AppCompatActivity() {
+class AmiibosActivity : BaseActivity<AmiibosViewModel, ActivityAmiibosBinding>() {
 
-    private lateinit var binding: ActivityAmiibosBinding
+    override val layout: Int = R.layout.activity_amiibos
 
-    private val viewModel: AmiibosViewModel by lazy { ViewModelProviders.of(this).get(AmiibosViewModel::class.java) }
+    override fun setViewModel(): Class<AmiibosViewModel> = AmiibosViewModel::class.java
 
-    private var amiibosAdapter = AmiibosAdapter()
+    private var amiibosAdapter = AmiibosAdapter(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_amiibos)
-        binding.setVariable(BR.viewModel, viewModel)
-        binding.setLifecycleOwner(this)
-
+    override fun initView(savedInstanceState: Bundle?) {
         setupAdapter()
         setupFab()
         setupRecyclerView()

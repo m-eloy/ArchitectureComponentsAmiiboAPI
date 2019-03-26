@@ -8,7 +8,7 @@ import java.util.*
 data class Amiibo(
 
     @PrimaryKey
-    var id: Int = 0,
+    override var id: Int = 0,
 
     var amiiboSeries: String = "none",
 
@@ -19,4 +19,4 @@ data class Amiibo(
     var release: Date = Date(),
 
     var imageUrl: String? = null
-)
+): BaseObject

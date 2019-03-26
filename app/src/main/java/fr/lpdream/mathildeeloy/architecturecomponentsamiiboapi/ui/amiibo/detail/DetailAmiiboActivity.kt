@@ -1,44 +1,21 @@
 package fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.amiibo.detail
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.ViewModelProviders
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityDetailAmiiboBinding
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseActivity
 
-class DetailAmiiboActivity : AppCompatActivity() {
+class DetailAmiiboActivity : BaseActivity<DetailAmiiboViewModel, ActivityDetailAmiiboBinding>() {
 
-    private lateinit var binding: ActivityDetailAmiiboBinding
+    override val layout: Int = R.layout.activity_detail_amiibo
 
-    private val viewModel: DetailAmiiboViewModel by lazy { ViewModelProviders.of(this).get(DetailAmiiboViewModel::class.java) }
+    override fun setViewModel(): Class<DetailAmiiboViewModel> = DetailAmiiboViewModel::class.java
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_amiibo)
-        binding.setVariable(BR.viewModel, viewModel)
-        binding.setLifecycleOwner(this)
-
+    override fun initView(savedInstanceState: Bundle?) {
         viewModel.amiiboId.value = intent.getIntExtra("id", 0)
-
         setupToolbar()
     }
 
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
-        android.R.id.home -> {
-            ActivityCompat.finishAfterTransition(this)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)

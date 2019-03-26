@@ -4,38 +4,25 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.ViewModelProviders
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.R
 import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.databinding.ActivityCreateAmiiboBinding
+import fr.lpdream.mathildeeloy.architecturecomponentsamiiboapi.ui.base.BaseActivity
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.util.*
 
-class CreateAmiiboActivity : AppCompatActivity() {
+class CreateAmiiboActivity : BaseActivity<CreateAmiiboViewModel, ActivityCreateAmiiboBinding>() {
 
-    private lateinit var binding: ActivityCreateAmiiboBinding
+    override val layout: Int = R.layout.activity_create_amiibo
 
-    private val viewModel: CreateAmiiboViewModel by lazy { ViewModelProviders.of(this).get(CreateAmiiboViewModel::class.java) }
+    override fun setViewModel(): Class<CreateAmiiboViewModel> = CreateAmiiboViewModel::class.java
 
     private var datePickerDialog: DatePickerDialog? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_amiibo)
-        binding.setVariable(BR.viewModel, viewModel)
-        binding.setLifecycleOwner(this)
-
+    override fun initView(savedInstanceState: Bundle?) {
         setupDatePicker()
         setupToolbar()
         setupViews()
-    }
-
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,10 +31,6 @@ class CreateAmiiboActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
-        android.R.id.home -> {
-            ActivityCompat.finishAfterTransition(this)
-            true
-        }
         R.id.confirm -> {
             viewModel.insert()
             ActivityCompat.finishAfterTransition(this@CreateAmiiboActivity)

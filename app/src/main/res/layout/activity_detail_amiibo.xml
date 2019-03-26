@@ -36,7 +36,8 @@
                         android:layout_height="0dp"
                         app:cover="@{viewModel.amiibo.imageUrl}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
                         style="@style/Title"
@@ -46,7 +47,8 @@
                         android:text="@string/amiibo_series"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/image"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                         style="@style/Text"
@@ -57,8 +59,8 @@
                         android:text="@{viewModel.amiibo.amiiboSeries}"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/amiiboSeriesTitle"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
-                />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image"/>
 
                 <TextView
                         style="@style/Title"
@@ -69,8 +71,8 @@
                         android:textSize="18sp"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/amiiboSeries"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
-                />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image"/>
 
                 <TextView
                         style="@style/Text"
@@ -81,8 +83,8 @@
                         android:text="@{Utils.dateToStringCapitalize(viewModel.amiibo.release)}"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/releaseTitle"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
-                />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image"/>
 
                 <TextView
                         style="@style/Title"
@@ -93,8 +95,8 @@
                         android:textSize="18sp"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/release"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
-                />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image"/>
 
                 <TextView
                         style="@style/Text"
@@ -105,7 +107,8 @@
                         android:text="@{viewModel.amiibo.gameSeries}"
                         android:layout_marginTop="@dimen/item_margin"
                         app:layout_constraintTop_toBottomOf="@id/gameSeriesTitle"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
